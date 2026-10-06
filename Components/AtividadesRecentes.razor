@@ -1,0 +1,37 @@
+@using MudBlazor
+@using afya_admin
+@using afya_admin.Data
+
+<DashboardCard Titulo="Atividades Recentes">
+    <Menu>
+        <MudMenuItem>Ver histórico completo</MudMenuItem>
+    </Menu>
+    <ChildContent>
+        <MudStack Spacing="3">
+            @foreach (var atividade in Atividades)
+            {
+                <MudStack AlignItems="AlignItems.Center" Row="true" Spacing="3">
+                    <MudBadge Bordered="true" Color="@atividade.Cor" Icon="@atividade.Icone" Overlap="true">
+                        <MudAvatar Class="@Ui.FundoSuave(atividade.Cor)" Size="Size.Medium">
+                            @Ui.Iniciais(atividade.Nome)
+                        </MudAvatar>
+                    </MudBadge>
+
+                    <div class="flex-grow-1">
+                        <MudText Typo="Typo.body2">
+                            <strong>@atividade.Nome</strong> @atividade.Acao
+                        </MudText>
+                    </div>
+
+                    <MudText Class="mud-text-secondary" Typo="Typo.caption">
+                        @atividade.Tempo
+                    </MudText>
+                </MudStack>
+            }
+        </MudStack>
+    </ChildContent>
+</DashboardCard>
+
+@code {
+    [Parameter, EditorRequired] public IReadOnlyList<Atividade> Atividades { get; set; } = Array.Empty<Atividade>();
+}
